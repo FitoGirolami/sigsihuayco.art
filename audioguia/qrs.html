@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Códigos QR · Audioguía Sigsihuayco</title>
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 24px; color: #171713; background: #eeeae0; font-family: Arial, sans-serif; }
+    header { max-width: 920px; margin: 0 auto 24px; text-align: center; }
+    h1 { margin-bottom: 8px; font-family: Georgia, serif; }
+    header p { margin: 0 0 16px; color: #4c504c; }
+    button { padding: 10px 16px; border: 0; border-radius: 8px; background: #173f3a; color: #fff; font-weight: 700; cursor: pointer; }
+    main { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; max-width: 920px; margin: auto; }
+    article { break-inside: avoid; padding: 16px; border: 1px solid #b8a98f; border-radius: 14px; background: #fff; text-align: center; }
+    img { width: min(100%, 270px); height: auto; }
+    h2 { margin: 10px 0 5px; font: 700 1.1rem/1.25 Georgia, serif; }
+    p { margin: 0; color: #64645d; font-size: .78rem; }
+    @media print {
+      @page { size: A4; margin: 10mm; }
+      body { padding: 0; background: #fff; }
+      header p, button { display: none; }
+      main { grid-template-columns: repeat(2, 1fr); gap: 7mm; }
+      article { padding: 6mm; border-radius: 0; }
+      img { width: 58mm; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Códigos QR de la audioguía</h1>
+    <p>Cada código abre una estación con reproductores en español e inglés.</p>
+    <button type="button" onclick="window.print()">Imprimir códigos</button>
+  </header>
+  <main>
+    <article><img src="qr/00-bienvenida.png" alt="QR Bienvenida"><h2>Bienvenida</h2><p>sigsihuayco.art/audioguia/?s=0</p></article>
+    <article><img src="qr/01-jardin-y-pachi.png" alt="QR Estación 1"><h2>Estación 1 · Jardín y Pachi</h2><p>sigsihuayco.art/audioguia/?s=1</p></article>
+    <article><img src="qr/02-mirador-del-pastaza.png" alt="QR Estación 2"><h2>Estación 2 · Mirador del Pastaza</h2><p>sigsihuayco.art/audioguia/?s=2</p></article>
+    <article><img src="qr/03-territorio-geologico.png" alt="QR Estación 3"><h2>Estación 3 · Territorio geológico</h2><p>sigsihuayco.art/audioguia/?s=3</p></article>
+    <article><img src="qr/04-leer-la-caverna.png" alt="QR Estación 4"><h2>Estación 4 · Leer la caverna</h2><p>sigsihuayco.art/audioguia/?s=4</p></article>
+    <article><img src="qr/05-memoria-del-nombre.png" alt="QR Estación 5"><h2>Estación 5 · Memoria del nombre</h2><p>sigsihuayco.art/audioguia/?s=5</p></article>
+    <article><img src="qr/06-de-la-memoria-a-la-leyenda.png" alt="QR Estación 6"><h2>Estación 6 · Memoria y leyenda</h2><p>sigsihuayco.art/audioguia/?s=6</p></article>
+    <article><img src="qr/07-la-expedicion.png" alt="QR Estación 7"><h2>Estación 7 · La expedición</h2><p>sigsihuayco.art/audioguia/?s=7</p></article>
+    <article><img src="qr/08-el-sobreviviente.png" alt="QR Estación 8"><h2>Estación 8 · El sobreviviente</h2><p>sigsihuayco.art/audioguia/?s=8</p></article>
+    <article><img src="qr/09-recuperacion-de-sigsihuayco.png" alt="QR Estación 9"><h2>Estación 9 · Recuperación</h2><p>sigsihuayco.art/audioguia/?s=9</p></article>
+    <article><img src="qr/especial-tesoro-de-atahualpa.png" alt="QR Estación especial"><h2>Estación especial · Tesoro de Atahualpa</h2><p>sigsihuayco.art/audioguia/?s=t</p></article>
+  </main>
+</body>
+</html>
