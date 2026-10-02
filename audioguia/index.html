@@ -10,43 +10,33 @@
   <style>
     :root {
       color-scheme: dark;
-      --fondo: #09100f;
-      --panel: rgba(13, 24, 22, .96);
-      --panel-2: #111e1b;
+      --fondo: #07100e;
+      --panel: rgba(15, 27, 24, .96);
       --claro: #f4f0e6;
       --suave: #b9c5c0;
       --ocre: #d2a25b;
-      --verde: #2f6a60;
       --borde: rgba(210, 162, 91, .34);
     }
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
     body {
       margin: 0;
       min-height: 100vh;
       background:
-        radial-gradient(circle at 50% -10%, rgba(55, 112, 100, .45), transparent 42%),
-        linear-gradient(160deg, #101c1a 0%, var(--fondo) 55%, #050807 100%);
+        radial-gradient(circle at 50% -10%, rgba(55, 112, 100, .46), transparent 43%),
+        linear-gradient(160deg, #101c1a 0%, var(--fondo) 58%, #040706 100%);
       color: var(--claro);
       font-family: Arial, Helvetica, sans-serif;
     }
-    a { color: inherit; }
     button, audio { font: inherit; }
-    .shell { width: min(760px, 100%); margin: 0 auto; padding: 22px 16px 56px; }
-    .top {
-      display: grid;
-      grid-template-columns: 68px 1fr;
-      gap: 15px;
-      align-items: center;
-      margin-bottom: 20px;
-    }
+    .shell { width: min(720px, 100%); margin: 0 auto; padding: 24px 16px 48px; }
+    .top { display: grid; grid-template-columns: 70px 1fr; gap: 15px; align-items: center; }
     .logo {
-      width: 68px;
-      height: 68px;
+      width: 70px;
+      height: 70px;
       object-fit: cover;
       border-radius: 50%;
       background: #fff;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, .28);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .32);
     }
     .eyebrow {
       margin: 0 0 5px;
@@ -77,280 +67,204 @@
       cursor: pointer;
     }
     .language button[aria-pressed="true"] { background: var(--ocre); color: #17110a; }
-    .intro {
-      margin: 0 0 24px;
-      color: var(--suave);
-      font-size: .96rem;
-      line-height: 1.65;
-    }
-    .station-list { display: grid; gap: 16px; }
-    .station {
+    .card {
       overflow: hidden;
       border: 1px solid var(--borde);
-      border-radius: 18px;
+      border-radius: 20px;
       background: var(--panel);
-      box-shadow: 0 18px 52px rgba(0, 0, 0, .25);
+      box-shadow: 0 18px 52px rgba(0, 0, 0, .28);
     }
-    .station-head { padding: 21px 21px 12px; }
+    .head { padding: 24px 22px 15px; }
     .number {
       display: inline-flex;
-      align-items: center;
-      min-height: 25px;
-      margin-bottom: 11px;
-      padding: 4px 9px;
+      margin-bottom: 12px;
+      padding: 5px 10px;
       border: 1px solid rgba(210, 162, 91, .45);
       border-radius: 999px;
       color: var(--ocre);
-      font-size: .68rem;
+      font-size: .69rem;
       font-weight: 800;
       letter-spacing: .1em;
       text-transform: uppercase;
     }
-    h2 { margin: 0; font: 500 clamp(1.48rem, 6vw, 2.05rem)/1.13 Georgia, serif; }
-    .place { margin: 9px 0 0; color: var(--suave); font-size: .88rem; line-height: 1.45; }
-    .player-wrap { padding: 8px 21px 22px; }
+    h2 { margin: 0; font: 500 clamp(1.55rem, 6vw, 2.15rem)/1.13 Georgia, serif; }
+    .place { margin: 10px 0 0; color: var(--suave); font-size: .91rem; line-height: 1.5; }
+    .player { padding: 10px 22px 25px; }
     audio { display: block; width: 100%; min-height: 54px; color-scheme: dark; }
-    .listening-note { margin: 13px 0 0; color: #8fa19a; font-size: .73rem; line-height: 1.45; }
-    .station-tools {
-      display: grid;
-      grid-template-columns: 86px 1fr;
-      gap: 14px;
-      align-items: center;
-      padding: 16px 21px;
+    .instruction, .empty {
+      margin: 0;
+      color: var(--suave);
+      font-size: .92rem;
+      line-height: 1.65;
+    }
+    .instruction {
+      padding: 18px 22px 22px;
       border-top: 1px solid rgba(255, 255, 255, .07);
-      background: var(--panel-2);
+      background: rgba(4, 9, 8, .42);
     }
-    .qr { width: 86px; height: 86px; padding: 5px; border-radius: 8px; background: #fff; }
-    .qr-label { margin: 0; color: var(--suave); font-size: .78rem; line-height: 1.45; }
-    .qr-label strong { display: block; margin-bottom: 4px; color: var(--claro); font-size: .85rem; }
-    .nav {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 20px;
-    }
-    .nav a {
-      display: grid;
-      place-items: center;
-      min-height: 48px;
-      padding: 10px 12px;
-      border: 1px solid var(--borde);
-      border-radius: 12px;
-      text-align: center;
-      text-decoration: none;
-      font-size: .82rem;
-      font-weight: 800;
-    }
-    .nav .all { grid-column: 1 / -1; color: var(--ocre); }
-    .footer {
-      margin-top: 30px;
-      padding-top: 24px;
-      border-top: 1px solid rgba(255, 255, 255, .1);
-      color: #85958f;
-      text-align: center;
-      font-size: .75rem;
-      line-height: 1.55;
-    }
-    .footer a { color: var(--ocre); text-underline-offset: 3px; }
-    .noscript { padding: 18px; border: 1px solid #9b613f; background: #2d1911; }
-    @media (min-width: 620px) {
-      .shell { padding-top: 34px; }
-      .station-head { padding: 28px 28px 14px; }
-      .player-wrap { padding: 10px 28px 27px; }
-      .station-tools { padding: 18px 28px; }
-    }
+    .notice { margin-top: 18px; color: #869790; font-size: .72rem; line-height: 1.5; text-align: center; }
+    .empty { padding: 26px 22px; }
+    .empty strong { display: block; margin-bottom: 8px; color: var(--claro); font: 500 1.45rem/1.2 Georgia, serif; }
   </style>
 </head>
 <body>
-  <div class="shell">
+  <main class="shell">
     <header class="top">
-      <img class="logo" src="../assets/logo-sigsihuayco.jpeg" alt="Cavernas de Sigsihuayco">
+      <img class="logo" src="../assets/logo-sigsihuayco.jpeg" alt="Caverna Sigsihuayco">
       <div>
-        <p class="eyebrow">Baños de Agua Santa · Ecuador</p>
-        <h1>Audioguía Sigsihuayco</h1>
+        <p class="eyebrow" id="brandLine">Recorrido cultural y geológico</p>
+        <h1>Sigsihuayco</h1>
       </div>
     </header>
 
-    <div class="language" role="group" aria-label="Idioma / Language">
+    <nav class="language" aria-label="Idioma / Language">
       <button id="lang-es" type="button" aria-pressed="true">Español</button>
       <button id="lang-en" type="button" aria-pressed="false">English</button>
-    </div>
+    </nav>
 
-    <p class="intro" id="intro"></p>
-    <main class="station-list" id="stations"></main>
-    <nav class="nav" id="navigation" aria-label="Navegación de estaciones"></nav>
-
-    <footer class="footer">
-      <span id="footer-copy"></span><br>
-      <a href="qrs.html" id="qr-sheet">Códigos QR para impresión</a>
-    </footer>
-    <noscript><p class="noscript">Esta audioguía necesita JavaScript para mostrar los reproductores.</p></noscript>
-  </div>
+    <section id="content" aria-live="polite"></section>
+    <p class="notice" id="notice"></p>
+  </main>
 
   <script>
-    (() => {
-      'use strict';
-      const stations = [
-        { id: '0', badge: ['Bienvenida', 'Welcome'], title: ['Bienvenida a Sigsihuayco', 'Welcome to Sigsihuayco'], place: ['Inicio de la experiencia', 'Beginning of the experience'], es: '../audios/es/00-bienvenida.mp3', en: '../audios/en/00-welcome.mp3', qr: 'qr/00-bienvenida.png' },
-        { id: '1', badge: ['Estación 1', 'Station 1'], title: ['El jardín y Pachi', 'The Garden and Pachi'], place: ['Jardines de la propiedad', 'Property gardens'], es: '../audios/es/01-jardin-y-pachi.mp3', en: '../audios/en/01-garden-and-pachi.mp3', qr: 'qr/01-jardin-y-pachi.png' },
-        { id: '2', badge: ['Estación 2', 'Station 2'], title: ['Mirador del Pastaza', 'Pastaza Viewpoint'], place: ['Vista al antiguo puente de San Francisco', 'View of the old San Francisco Bridge'], es: '../audios/es/02-mirador-del-pastaza.mp3', en: '../audios/en/02-pastaza-viewpoint.mp3', qr: 'qr/02-mirador-del-pastaza.png' },
-        { id: '3', badge: ['Estación 3', 'Station 3'], title: ['Un territorio geológico', 'A Geological Territory'], place: ['Antes del ingreso a la caverna', 'Before entering the cavern'], es: '../audios/es/03-territorio-geologico.mp3', en: '../audios/en/03-geological-territory.mp3', qr: 'qr/03-territorio-geologico.png' },
-        { id: '4', badge: ['Estación 4', 'Station 4'], title: ['Leer la caverna', 'Reading the Cavern'], place: ['Primer sector interior', 'First interior section'], es: '../audios/es/04-leer-la-caverna.mp3', en: '../audios/en/04-reading-the-cavern.mp3', qr: 'qr/04-leer-la-caverna.png' },
-        { id: '5', badge: ['Estación 5', 'Station 5'], title: ['La memoria de un nombre', 'The Memory of a Name'], place: ['Interior de la caverna', 'Inside the cavern'], es: '../audios/es/05-memoria-del-nombre.mp3', en: '../audios/en/05-memory-of-the-name.mp3', qr: 'qr/05-memoria-del-nombre.png' },
-        { id: '6', badge: ['Estación 6', 'Station 6'], title: ['De la memoria a la leyenda', 'From Memory to Legend'], place: ['Interior de la caverna', 'Inside the cavern'], es: '../audios/es/06-de-la-memoria-a-la-leyenda.mp3', en: '../audios/en/06-from-memory-to-legend.mp3', qr: 'qr/06-de-la-memoria-a-la-leyenda.png' },
-        { id: '7', badge: ['Estación 7', 'Station 7'], title: ['La expedición', 'The Expedition'], place: ['Interior de la caverna', 'Inside the cavern'], es: '../audios/es/07-la-expedicion.mp3', en: '../audios/en/07-the-expedition.mp3', qr: 'qr/07-la-expedicion.png' },
-        { id: '8', badge: ['Estación 8', 'Station 8'], title: ['El sobreviviente', 'The Survivor'], place: ['Interior de la caverna', 'Inside the cavern'], es: '../audios/es/08-el-sobreviviente.mp3', en: '../audios/en/08-the-survivor.mp3', qr: 'qr/08-el-sobreviviente.png' },
-        { id: '9', badge: ['Estación 9', 'Station 9'], title: ['La recuperación de Sigsihuayco', 'The Recovery of Sigsihuayco'], place: ['Final del recorrido', 'End of the route'], es: '../audios/es/09-recuperacion-de-sigsihuayco.mp3', en: '../audios/en/09-recovery-of-sigsihuayco.mp3', qr: 'qr/09-recuperacion-de-sigsihuayco.png' },
-        { id: 't', badge: ['Estación especial', 'Special Station'], title: ['El tesoro de Atahualpa', 'Atahualpa’s Treasure'], place: ['Escultura de piedra inspirada en el mundo inca', 'Stone sculpture inspired by the Inca world'], es: '../audios/es/especial-tesoro-de-atahualpa.mp3', en: '../audios/en/special-atahualpas-treasure.mp3', qr: 'qr/especial-tesoro-de-atahualpa.png' }
-      ];
+    const stations = {
+      "0": {
+        label: { es: "Bienvenida", en: "Welcome" },
+        title: { es: "Bienvenidos a Sigsihuayco", en: "Welcome to Sigsihuayco" },
+        place: { es: "Punto de inicio del recorrido", en: "Starting point of the visit" },
+        file: { es: "00-bienvenida.mp3", en: "00-welcome.mp3" }
+      },
+      "1": {
+        label: { es: "Estación 1", en: "Station 1" },
+        title: { es: "El jardín y Pachi", en: "The garden and Pachi" },
+        place: { es: "Jardines de la propiedad", en: "The property gardens" },
+        file: { es: "01-jardin-y-pachi.mp3", en: "01-garden-and-pachi.mp3" }
+      },
+      "2": {
+        label: { es: "Estación 2", en: "Station 2" },
+        title: { es: "Mirador del Pastaza", en: "The Pastaza viewpoint" },
+        place: { es: "Vista al antiguo puente de San Francisco", en: "View of the old San Francisco bridge" },
+        file: { es: "02-mirador-del-pastaza.mp3", en: "02-pastaza-viewpoint.mp3" }
+      },
+      "3": {
+        label: { es: "Estación 3", en: "Station 3" },
+        title: { es: "Un territorio geológico activo", en: "An active geological territory" },
+        place: { es: "Antes del ingreso a la caverna", en: "Before entering the cavern" },
+        file: { es: "03-territorio-geologico.mp3", en: "03-geological-territory.mp3" }
+      },
+      "4": {
+        label: { es: "Estación 4", en: "Station 4" },
+        title: { es: "Leer la caverna", en: "Reading the cavern" },
+        place: { es: "Primer tramo interior", en: "First interior section" },
+        file: { es: "04-leer-la-caverna.mp3", en: "04-reading-the-cavern.mp3" }
+      },
+      "5": {
+        label: { es: "Estación 5", en: "Station 5" },
+        title: { es: "La memoria de un nombre", en: "The memory of a name" },
+        place: { es: "Sigsihuayco en la memoria de Baños", en: "Sigsihuayco in the memory of Baños" },
+        file: { es: "05-memoria-del-nombre.mp3", en: "05-memory-of-the-name.mp3" }
+      },
+      "6": {
+        label: { es: "Estación 6", en: "Station 6" },
+        title: { es: "De la memoria a la leyenda", en: "From memory to legend" },
+        place: { es: "Relatos de las grutas de Sigsihuayco", en: "Stories of the Sigsihuayco caves" },
+        file: { es: "06-de-la-memoria-a-la-leyenda.mp3", en: "06-from-memory-to-legend.mp3" }
+      },
+      "7": {
+        label: { es: "Estación 7", en: "Station 7" },
+        title: { es: "La expedición", en: "The expedition" },
+        place: { es: "Un camino hacia los Llanganates", en: "A path toward the Llanganates" },
+        file: { es: "07-la-expedicion.mp3", en: "07-the-expedition.mp3" }
+      },
+      "8": {
+        label: { es: "Estación 8", en: "Station 8" },
+        title: { es: "El sobreviviente", en: "The survivor" },
+        place: { es: "El desenlace de la leyenda", en: "The legend's conclusion" },
+        file: { es: "08-el-sobreviviente.mp3", en: "08-the-survivor.mp3" }
+      },
+      "9": {
+        label: { es: "Estación 9", en: "Station 9" },
+        title: { es: "La recuperación de Sigsihuayco", en: "The recovery of Sigsihuayco" },
+        place: { es: "Rosa Gamboa y la memoria viva del lugar", en: "Rosa Gamboa and the living memory of the place" },
+        file: { es: "09-recuperacion-de-sigsihuayco.mp3", en: "09-recovery-of-sigsihuayco.mp3" }
+      },
+      "t": {
+        label: { es: "Estación especial", en: "Special station" },
+        title: { es: "El tesoro de Atahualpa", en: "Atahualpa's treasure" },
+        place: { es: "Junto a la escultura de piedra", en: "Beside the stone sculpture" },
+        file: { es: "especial-tesoro-de-atahualpa.mp3", en: "special-atahualpas-treasure.mp3" }
+      }
+    };
 
-      const copy = {
-        es: {
-          intro: 'Escucha cada estación a tu propio ritmo. Utiliza audífonos, cuida el volumen y sigue siempre las indicaciones del personal.',
-          listen: 'Contenido disponible para escucha durante la visita. No se autoriza su descarga, copia ni redistribución.',
-          qrTitle: 'QR de esta estación',
-          qrText: 'Este código abre directamente este punto de la audioguía.',
-          previous: '← Estación anterior',
-          next: 'Estación siguiente →',
-          all: 'Ver todas las estaciones',
-          footer: 'Audioguía cultural y geológica · Cavernas de Sigsihuayco',
-          sheet: 'Códigos QR para impresión'
-        },
-        en: {
-          intro: 'Listen to each station at your own pace. Use headphones, keep the volume comfortable, and always follow staff instructions.',
-          listen: 'Available for listening during your visit. Downloading, copying, or redistribution is not authorized.',
-          qrTitle: 'Station QR code',
-          qrText: 'This code opens this point of the audio guide directly.',
-          previous: '← Previous station',
-          next: 'Next station →',
-          all: 'View all stations',
-          footer: 'Cultural and geological audio guide · Sigsihuayco Caverns',
-          sheet: 'Printable QR codes'
-        }
-      };
+    const copy = {
+      es: {
+        brand: "Recorrido cultural y geológico",
+        scanTitle: "La audioguía se activa con los QR",
+        scanText: "Escanee el código ubicado en cada estación del recorrido. Cada QR abre únicamente el audio correspondiente a ese lugar.",
+        invalidTitle: "Estación no disponible",
+        invalidText: "Este enlace no corresponde a una estación activa. Escanee nuevamente el código QR instalado en el recorrido.",
+        instruction: "Cuando termine este audio, continúe el recorrido y escanee el código QR de la próxima estación.",
+        notice: "Contenido para escuchar durante la visita. No se autoriza su descarga, copia ni redistribución."
+      },
+      en: {
+        brand: "Cultural and geological tour",
+        scanTitle: "The audio guide is activated by QR codes",
+        scanText: "Scan the code displayed at each point of the route. Every QR opens only the audio for that location.",
+        invalidTitle: "Station unavailable",
+        invalidText: "This link does not correspond to an active station. Please scan the QR code installed along the route again.",
+        instruction: "When this audio ends, continue the visit and scan the QR code at the next station.",
+        notice: "Content intended for listening during the visit. Downloading, copying, or redistribution is not authorized."
+      }
+    };
 
-      const indexFor = lang => lang === 'es' ? 0 : 1;
-      const validIds = new Set(stations.map(station => station.id));
-      const requested = new URLSearchParams(location.search).get('s');
-      const selectedId = validIds.has(requested) ? requested : null;
-      let language = localStorage.getItem('sigsihuayco-language') || (navigator.language.toLowerCase().startsWith('en') ? 'en' : 'es');
-      if (!['es', 'en'].includes(language)) language = 'es';
+    const params = new URLSearchParams(window.location.search);
+    const stationKey = params.get("s");
+    let language = "es";
 
-      const stationHost = document.getElementById('stations');
-      const navigation = document.getElementById('navigation');
-      const intro = document.getElementById('intro');
-      const footerCopy = document.getElementById('footer-copy');
-      const qrSheet = document.getElementById('qr-sheet');
-      const esButton = document.getElementById('lang-es');
-      const enButton = document.getElementById('lang-en');
+    function audioPath(item) {
+      return `../audios/${language}/${item.file[language]}`;
+    }
 
-      function stopOtherAudio(current) {
-        document.querySelectorAll('audio').forEach(audio => {
-          if (audio !== current) audio.pause();
-        });
+    function render() {
+      const text = copy[language];
+      const item = stations[stationKey];
+      document.documentElement.lang = language;
+      document.getElementById("brandLine").textContent = text.brand;
+      document.getElementById("lang-es").setAttribute("aria-pressed", String(language === "es"));
+      document.getElementById("lang-en").setAttribute("aria-pressed", String(language === "en"));
+      document.getElementById("notice").textContent = text.notice;
+
+      if (!stationKey) {
+        document.getElementById("content").innerHTML = `<article class="card"><div class="empty"><strong>${text.scanTitle}</strong>${text.scanText}</div></article>`;
+        return;
       }
 
-      function stationCard(station) {
-        const i = indexFor(language);
-        const article = document.createElement('article');
-        article.className = 'station';
-        article.id = `station-${station.id}`;
-
-        const head = document.createElement('div');
-        head.className = 'station-head';
-        const badge = document.createElement('span');
-        badge.className = 'number';
-        badge.textContent = station.badge[i];
-        const title = document.createElement('h2');
-        title.textContent = station.title[i];
-        const place = document.createElement('p');
-        place.className = 'place';
-        place.textContent = station.place[i];
-        head.append(badge, title, place);
-
-        const playerWrap = document.createElement('div');
-        playerWrap.className = 'player-wrap';
-        const audio = document.createElement('audio');
-        audio.controls = true;
-        audio.preload = 'metadata';
-        audio.src = station[language];
-        audio.setAttribute('controlsList', 'nodownload noplaybackrate');
-        audio.setAttribute('disablePictureInPicture', '');
-        audio.setAttribute('aria-label', `${station.badge[i]}: ${station.title[i]}`);
-        audio.addEventListener('contextmenu', event => event.preventDefault());
-        audio.addEventListener('dragstart', event => event.preventDefault());
-        audio.addEventListener('play', () => stopOtherAudio(audio));
-        const note = document.createElement('p');
-        note.className = 'listening-note';
-        note.textContent = copy[language].listen;
-        playerWrap.append(audio, note);
-
-        const tools = document.createElement('div');
-        tools.className = 'station-tools';
-        const qr = document.createElement('img');
-        qr.className = 'qr';
-        qr.src = station.qr;
-        qr.alt = `${copy[language].qrTitle}: ${station.title[i]}`;
-        qr.loading = 'lazy';
-        qr.draggable = false;
-        const label = document.createElement('p');
-        label.className = 'qr-label';
-        const strong = document.createElement('strong');
-        strong.textContent = copy[language].qrTitle;
-        label.append(strong, document.createTextNode(copy[language].qrText));
-        tools.append(qr, label);
-
-        article.append(head, playerWrap, tools);
-        return article;
+      if (!item) {
+        document.getElementById("content").innerHTML = `<article class="card"><div class="empty"><strong>${text.invalidTitle}</strong>${text.invalidText}</div></article>`;
+        return;
       }
 
-      function renderNavigation() {
-        navigation.replaceChildren();
-        if (!selectedId) return;
-        const position = stations.findIndex(station => station.id === selectedId);
-        if (position > 0) {
-          const previous = document.createElement('a');
-          previous.href = `?s=${stations[position - 1].id}`;
-          previous.textContent = copy[language].previous;
-          navigation.append(previous);
-        }
-        if (position < stations.length - 1) {
-          const next = document.createElement('a');
-          next.href = `?s=${stations[position + 1].id}`;
-          next.textContent = copy[language].next;
-          navigation.append(next);
-        }
-        const all = document.createElement('a');
-        all.href = './';
-        all.className = 'all';
-        all.textContent = copy[language].all;
-        navigation.append(all);
-      }
+      document.title = `${item.label[language]} · Sigsihuayco`;
+      document.getElementById("content").innerHTML = `
+        <article class="card">
+          <div class="head">
+            <span class="number">${item.label[language]}</span>
+            <h2>${item.title[language]}</h2>
+            <p class="place">${item.place[language]}</p>
+          </div>
+          <div class="player">
+            <audio controls preload="metadata" controlsList="nodownload noplaybackrate" disablePictureInPicture oncontextmenu="return false">
+              <source src="${audioPath(item)}" type="audio/mpeg">
+            </audio>
+          </div>
+          <p class="instruction">${text.instruction}</p>
+        </article>`;
+    }
 
-      function render() {
-        document.documentElement.lang = language;
-        esButton.setAttribute('aria-pressed', String(language === 'es'));
-        enButton.setAttribute('aria-pressed', String(language === 'en'));
-        intro.textContent = copy[language].intro;
-        footerCopy.textContent = copy[language].footer;
-        qrSheet.textContent = copy[language].sheet;
-        stationHost.replaceChildren();
-        const visible = selectedId ? stations.filter(station => station.id === selectedId) : stations;
-        visible.forEach(station => stationHost.append(stationCard(station)));
-        renderNavigation();
-      }
-
-      function changeLanguage(next) {
-        document.querySelectorAll('audio').forEach(audio => audio.pause());
-        language = next;
-        localStorage.setItem('sigsihuayco-language', language);
-        render();
-      }
-
-      esButton.addEventListener('click', () => changeLanguage('es'));
-      enButton.addEventListener('click', () => changeLanguage('en'));
-      render();
-    })();
+    document.getElementById("lang-es").addEventListener("click", () => { language = "es"; render(); });
+    document.getElementById("lang-en").addEventListener("click", () => { language = "en"; render(); });
+    document.addEventListener("dragstart", event => event.preventDefault());
+    render();
   </script>
 </body>
 </html>
