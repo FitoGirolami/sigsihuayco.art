@@ -29,11 +29,20 @@
     }
     main {
       width: min(720px, 100%);
-      padding: clamp(32px, 7vw, 72px);
+      padding: clamp(28px, 7vw, 72px);
       border: 1px solid rgba(199, 146, 72, .45);
       background: rgba(8, 14, 13, .78);
       box-shadow: 0 28px 90px rgba(0, 0, 0, .38);
       text-align: center;
+    }
+    .logo {
+      display: block;
+      width: min(350px, 100%);
+      height: auto;
+      margin: 0 auto 28px;
+      border-radius: 16px;
+      background: #fff;
+      box-shadow: 0 16px 38px rgba(0, 0, 0, .28);
     }
     .kicker {
       margin: 0 0 18px;
@@ -85,6 +94,7 @@
 </head>
 <body>
   <main>
+    <img class="logo" src="assets/logo-sigsihuayco.jpeg" alt="Caverna Spa Sigsi Huayco">
     <p class="kicker">Baños de Agua Santa · Ecuador</p>
     <h1>Sigsihuayco</h1>
     <p class="subtitulo">Piedra, memoria y misterio</p>
